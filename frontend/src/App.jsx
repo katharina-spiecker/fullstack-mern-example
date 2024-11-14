@@ -37,13 +37,15 @@ function App() {
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, getToken, logout }}>
       <Routes>
+        {/* Öffentliche Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
+         {/* Routes für eingeloggte Nutzer (siehe Inhalt Layout Komponente) */}
         <Route path="/" element={<Layout />}>
-          <Route index element={isAuthenticated ? <AllPosts /> : <Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/all-posts" element={<AllPosts />} />
-          <Route path="/my-posts" element={<UserPosts />} />
-          <Route path="/new-post" element={<CreatePost />} />
+          <Route index element={<AllPosts />} />
+          <Route path="/posts" element={<AllPosts />} />
+          <Route path="/account/posts" element={<UserPosts />} />
+          <Route path="/newpost" element={<CreatePost />} />
         </Route>
       </Routes>
     </AuthContext.Provider>

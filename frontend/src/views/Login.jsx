@@ -35,7 +35,7 @@ export default function Login() {
                 setEmail("");
                 setPassword("");
                 login(data.token);
-                navigate("/all-posts")
+                navigate("/posts")
             }
         })
         .catch(() => setMessage("Bitte kontrolliere deine Daten"))

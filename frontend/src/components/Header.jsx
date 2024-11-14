@@ -12,9 +12,9 @@ export default function Header() {
                 isAuthenticated ? (
                     <header>
                         <nav>
-                            <NavLink to="/all-posts">Alle Posts</NavLink>
-                            <NavLink to="/my-posts">Meine Posts</NavLink>
-                            <NavLink to="/new-post">Neuer Post</NavLink>
+                            <NavLink to="/posts">Alle Posts</NavLink>
+                            <NavLink to="/account/posts">Meine Posts</NavLink>
+                            <NavLink to="/newpost">Neuer Post</NavLink>
                         </nav>
                         <button className="button-secondary" onClick={logout}>Logout</button>
                     </header> 
