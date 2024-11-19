@@ -11,7 +11,7 @@ export default function CreatePost() {
         e.preventDefault();
         const jwt = getToken();
 
-        fetch('http://localhost:3000/api/posts', {
+        fetch('https://fullstack-mern-example.onrender.com/api/posts', {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',

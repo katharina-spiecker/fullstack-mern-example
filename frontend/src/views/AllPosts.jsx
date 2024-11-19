@@ -9,7 +9,7 @@ export default function AllPosts() {
     const jwt = getToken();
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/posts', {
+        fetch('https://fullstack-mern-example.onrender.com/api/posts', {
             headers: {
               'Authorization': `Bearer ${jwt}`
             }
