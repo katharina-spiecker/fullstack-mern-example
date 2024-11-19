@@ -9,7 +9,9 @@ await mongoose.connect(process.env.DB_URI);
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://fullstack-mern-example-frontend.onrender.com']
+}));
 
 app.use("/api/auth", authRouter);
 app.use("/api", postsRouter);
