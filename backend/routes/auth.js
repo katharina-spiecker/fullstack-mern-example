@@ -29,31 +29,31 @@ router.post("/register", async (req, res) => {
       verified: true // TODO: nur zum Testen, lösch danach wieder
     })
 
-    const emailResponse = await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'katharina.spiecker-freelancer@digitalcareerinstitute.org',
-      subject: 'Willkommen! Bitte E-Mail bestätigen',
-      html: `
-      <div style="font-family: Arial, sans-serif; color: #333;">
-        <h1 style="color: #4CAF50;">Welcome to d01b!</h1>
-        <p>Wir freuen uns, dich in unserem Team zu haben.</p>
-        <p>Bitte bestätige deine Email!</p>
-        <a href="http://localhost:3000/verify/${verificationToken}">E-Mail bestätigen<a/>
-        <p>Nächste Schritte:</p>
-        <ol>
-          <li>Explore our features</li>
-          <li>Set up your profile</li>
-          <li>Start using our platform to maximize productivity</li>
-        </ol>
-        <p>Bis bald!</p>
-        <p>Das d01b Team</p>
-      </div>
-    `
-    });
+    // const emailResponse = await resend.emails.send({
+    //   from: 'onboarding@resend.dev',
+    //   to: 'katharina.spiecker-freelancer@digitalcareerinstitute.org',
+    //   subject: 'Willkommen! Bitte E-Mail bestätigen',
+    //   html: `
+    //   <div style="font-family: Arial, sans-serif; color: #333;">
+    //     <h1 style="color: #4CAF50;">Welcome to d01b!</h1>
+    //     <p>Wir freuen uns, dich in unserem Team zu haben.</p>
+    //     <p>Bitte bestätige deine Email!</p>
+    //     <a href="http://localhost:3000/verify/${verificationToken}">E-Mail bestätigen<a/>
+    //     <p>Nächste Schritte:</p>
+    //     <ol>
+    //       <li>Explore our features</li>
+    //       <li>Set up your profile</li>
+    //       <li>Start using our platform to maximize productivity</li>
+    //     </ol>
+    //     <p>Bis bald!</p>
+    //     <p>Das d01b Team</p>
+    //   </div>
+    // `
+    // });
 
-    if (emailResponse.error) {
-      return res.status(500).json({error: 'Failed to send verification email'})
-    }
+    // if (emailResponse.error) {
+    //   return res.status(500).json({error: 'Failed to send verification email'})
+    // }
 
     res.status(201).json(user);
   } catch (error) {
