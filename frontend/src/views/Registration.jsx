@@ -9,7 +9,7 @@ export default function Registration() {
     function onSubmit(e) {
         e.preventDefault();
 
-        fetch('https://fullstack-mern-example.onrender.com/auth/api/register', {
+        fetch('https://fullstack-mern-example.onrender.com/api/auth/register', {
             method: 'POST', // HTTP-Methode
             headers: {
               'Content-Type': 'application/json' // Header, der den Inhaltstyp angibt
