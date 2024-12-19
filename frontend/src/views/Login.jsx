@@ -13,7 +13,7 @@ export default function Login() {
     function onSubmit(e) {
         e.preventDefault();
 
-        fetch('https://fullstack-mern-example.onrender.com/api/auth/login', {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
             method: 'POST', // HTTP-Methode
             headers: {
               'Content-Type': 'application/json' // Header, der den Inhaltstyp angibt

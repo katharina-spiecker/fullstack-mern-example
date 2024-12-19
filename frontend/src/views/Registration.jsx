@@ -9,7 +9,7 @@ export default function Registration() {
     function onSubmit(e) {
         e.preventDefault();
 
-        fetch('https://fullstack-mern-example.onrender.com/api/auth/register', {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
             method: 'POST', // HTTP-Methode
             headers: {
               'Content-Type': 'application/json' // Header, der den Inhaltstyp angibt
@@ -42,7 +42,7 @@ export default function Registration() {
                 </div>
                 <div className="input-section">
                     <label htmlFor="password">Passwort</label>
-                    <input type="text" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <button className="button-primary">Registrieren</button>
             </form>

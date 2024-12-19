@@ -11,7 +11,7 @@ export default function CreatePost() {
         e.preventDefault();
         const jwt = getToken();
 
-        fetch('https://fullstack-mern-example.onrender.com/api/posts', {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts`, {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',

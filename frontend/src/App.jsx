@@ -8,6 +8,8 @@ import AllPosts from "./views/AllPosts.jsx";
 import UserPosts from "./views/UserPosts.jsx";
 import CreatePost from "./views/CreatePost.jsx";
 import Layout from "./Layout.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import BlogView from "./views/BlogView.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,15 +39,19 @@ function App() {
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, getToken, logout }}>
       <Routes>
-        {/* Öffentliche Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
-         {/* Routes für eingeloggte Nutzer (siehe Inhalt Layout Komponente) */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<AllPosts />} />
-          <Route path="/posts" element={<AllPosts />} />
-          <Route path="/account/posts" element={<UserPosts />} />
-          <Route path="/newpost" element={<CreatePost />} />
+          {/* public routes */}
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Registration />} />
+          <Route path="blog" element={<BlogView />} />
+
+          {/* protected routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route index element={<AllPosts />} />
+            <Route path="posts" element={<AllPosts />} />
+            <Route path="account/posts" element={<UserPosts />} />
+            <Route path="newpost" element={<CreatePost />} />
+          </Route>
         </Route>
       </Routes>
     </AuthContext.Provider>

@@ -9,7 +9,7 @@ export default function AllPosts() {
     const jwt = getToken();
 
     useEffect(() => {
-        fetch('https://fullstack-mern-example.onrender.com/api/posts', {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts`, {
             headers: {
               'Authorization': `Bearer ${jwt}`
             }
