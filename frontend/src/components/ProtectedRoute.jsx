@@ -3,9 +3,10 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext.js";
 
 export default function ProtectedRoute() {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, authIsLoading } = useContext(AuthContext);
 
-  if (!isAuthenticated) {
+  // wenn laden beendet ist und User nicht eingeloggt ist
+  if (!authIsLoading && !isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 

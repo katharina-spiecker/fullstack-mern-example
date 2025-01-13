@@ -28,7 +28,6 @@ export default function Registration() {
             setPassword("");
         })
         .catch(error => setMessage("Bitte kontrolliere deine Daten"));
-
     }
 
     return (

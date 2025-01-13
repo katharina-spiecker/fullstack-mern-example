@@ -13,12 +13,14 @@ import BlogView from "./views/BlogView.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authIsLoading, setAuthIsLoading] = useState(true);
   const navigate = useNavigate(); // für redirect in logout button
 
   useEffect(() => {
     if (getToken()) {
       setIsAuthenticated(true);
     }
+    setAuthIsLoading(false);
   }, [])
 
   function login(token) {
@@ -36,8 +38,10 @@ function App() {
     return localStorage.getItem('token');
   }
 
+  console.log("isAuthenticated", isAuthenticated)
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, getToken, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, authIsLoading, login, getToken, logout }}>
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}
