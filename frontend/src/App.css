@@ -9,6 +9,19 @@ body {
   color: rgb(33, 33, 33);
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .form-wrapper {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 40px;
@@ -99,12 +112,6 @@ nav {
   gap: 30px;
 }
 
-main {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .post-wrapper {
   border: 2px solid rgb(215, 215, 215);
   padding: 40px;
@@ -115,6 +122,13 @@ main {
 
 .post-wrapper-title {
   margin-bottom: 20px;
+}
+
+footer {
+  background-color: rgb(215, 215, 215);
+  padding: 20px;
+  display: flex;
+  gap: 10px;
 }
 
 @media (min-width: 1250px) {

@@ -10,6 +10,7 @@ import CreatePost from "./views/CreatePost.jsx";
 import Layout from "./Layout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import BlogView from "./views/BlogView.jsx";
+import LegalView from "./views/legal/LegalView.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,6 +49,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Registration />} />
           <Route path="blog" element={<BlogView />} />
+          <Route path="impressum" element={<LegalView type="impressum" />} />
+          <Route path="privacy" element={<LegalView type="privacy" />} />
 
           {/* protected routes */}
           <Route element={<ProtectedRoute />}>

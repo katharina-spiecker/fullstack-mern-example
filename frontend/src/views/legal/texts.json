@@ -1,0 +1,10 @@
+{
+    "impressum": {
+        "title": "Impressum",
+        "description": "Impressum Text hier"
+    },
+    "privacy": {
+        "title": "Datenschutz",
+        "description": "Datenschutz Text hier"
+    }
+}
