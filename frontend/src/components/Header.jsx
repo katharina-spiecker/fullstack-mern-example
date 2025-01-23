@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 export default function Header() {
-    const { isAuthenticated, logout, login } = useContext(AuthContext);
+    const { isAuthenticated, logout } = useContext(AuthContext);
 
     return (
         <>
@@ -24,7 +24,10 @@ export default function Header() {
                     isAuthenticated ? (
                         <button className="button-secondary" onClick={logout}>Logout</button>
                     ) : (
-                        <NavLink className="button-secondary" to="/login">Sign In</NavLink>
+                        <div>
+                        <NavLink className="button-primary d-block" style={{marginRight: "8px"}} to="/login">Sign In</NavLink>
+                        <NavLink className="button-secondary" to="/register">Register</NavLink>
+                        </div>
                     )
                 }
             </header> 

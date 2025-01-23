@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/main.scss";
 import { AuthContext } from "./context/AuthContext.js";
 import { useEffect, useState } from "react";
 import Login from "./views/Login.jsx";
@@ -11,6 +11,7 @@ import Layout from "./Layout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import BlogView from "./views/BlogView.jsx";
 import LegalView from "./views/legal/LegalView.jsx";
+import LandingPage from "./views/LangingPage.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,11 +47,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}
+          <Route index element={<LandingPage />}></Route>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Registration />} />
           <Route path="blog" element={<BlogView />} />
           <Route path="impressum" element={<LegalView type="impressum" />} />
           <Route path="privacy" element={<LegalView type="privacy" />} />
+
 
           {/* protected routes */}
           <Route element={<ProtectedRoute />}>
