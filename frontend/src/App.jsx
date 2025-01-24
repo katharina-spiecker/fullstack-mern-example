@@ -1,8 +1,11 @@
 import "./styles/main.scss";
 import { AuthContext } from "./context/AuthContext.js";
 import { useEffect, useState } from "react";
-import Login from "./views/Login.jsx";
-import Registration from "./views/Registration.jsx";
+import Login from "./views/auth/Login.jsx";
+import Registration from "./views/auth/Registration.jsx";
+import RequestPwdResetView from "./views/auth/RequestPwdResetView.jsx";
+import EmailConfirmationView from "./views/auth/EmailConfirmationView.jsx";
+import PwdResetView from "./views/auth/PwdResetView.jsx";
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import AllPosts from "./views/AllPosts.jsx";
 import UserPosts from "./views/UserPosts.jsx";
@@ -53,7 +56,11 @@ function App() {
           <Route path="blog" element={<BlogView />} />
           <Route path="impressum" element={<LegalView type="impressum" />} />
           <Route path="privacy" element={<LegalView type="privacy" />} />
-
+          <Route path="verify/:token" element={<EmailConfirmationView />} />
+          {/* link to this page on login page */}
+          <Route path="request-pwd-reset" element={<RequestPwdResetView />}/>
+          {/* link to this page sent by email */}
+          <Route path="pwd-reset/:token" element={<PwdResetView />}/>
 
           {/* protected routes */}
           <Route element={<ProtectedRoute />}>

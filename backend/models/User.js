@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema({
   },
   tokenExpiresAt: {
     type: Date
+  },
+  pwdResetToken: {
+    type: String
+  },
+  pwdResetTokenExpiresAt: {
+    type: Date
   }
 })
 

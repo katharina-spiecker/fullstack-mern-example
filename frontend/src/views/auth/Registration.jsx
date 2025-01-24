@@ -1,19 +1,15 @@
-import { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Link } from 'react-router-dom';
 
-export default function Login() {
+export default function Registration() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
-    const { login } = useContext(AuthContext);
-
-    const navigate = useNavigate();
 
     function onSubmit(e) {
         e.preventDefault();
 
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
             method: 'POST', // HTTP-Methode
             headers: {
               'Content-Type': 'application/json' // Header, der den Inhaltstyp angibt
@@ -25,25 +21,18 @@ export default function Login() {
         })
         .then(res => {
             if (!res.ok) {
-                throw new Error("Login failed");
+                throw new Error("registration failed");
             }
-            setMessage(""); // entferne Nachricht, falls vorher login fehlgeschlagen und Fehlernachricht noch angezeigt wird
-            return res.json();
+            setMessage("Bitte checke deine Inbox und bestätige deine E-Mail.");
+            setEmail("");
+            setPassword("");
         })
-        .then(data => {
-            if (data.token) {
-                setEmail("");
-                setPassword("");
-                login(data.token);
-                navigate("/posts")
-            }
-        })
-        .catch(() => setMessage("Bitte kontrolliere deine Daten"))
+        .catch(error => setMessage("Bitte kontrolliere deine Daten"));
     }
 
     return (
         <section className="form-wrapper">
-            <h1>Login</h1>
+            <h1>Neu hier?</h1>
             <p className="form-info">{message}</p>
             <form onSubmit={onSubmit}>
                 <div className="input-section">
@@ -54,9 +43,9 @@ export default function Login() {
                     <label htmlFor="password">Passwort</label>
                     <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
-                <button className="button-primary">Anmelden</button>
+                <button className="button-primary">Registrieren</button>
             </form>
-            <p style={{marginTop: "20px"}}>Neu hier? <br/><NavLink to="/register">Jetzt registrieren</NavLink></p>
+            <p style={{marginTop: "20px"}}>Du hast schon einen Account?<br/> <Link to="/login">Jetzt einloggen</Link></p>
         </section>
     )
 }

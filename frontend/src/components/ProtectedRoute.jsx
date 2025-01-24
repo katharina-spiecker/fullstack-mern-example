@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext.js";
 export default function ProtectedRoute() {
   const { isAuthenticated, authIsLoading } = useContext(AuthContext);
 
-  // wenn laden beendet ist und User nicht eingeloggt ist
+  // loading is completed but user is not authenticated
   if (!authIsLoading && !isAuthenticated) {
     return <Navigate to="/login" replace />;
   }

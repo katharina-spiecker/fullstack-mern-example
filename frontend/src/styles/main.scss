@@ -1,7 +1,7 @@
+@import "./variables.scss";
 @import "./layout.scss";
 @import "./components/buttons.scss";
 @import "./components/form.scss";
-@import "./components/post.scss";
 
 * {
   box-sizing: border-box;
@@ -12,7 +12,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(33, 33, 33);
-  --primary-color: rgb(156, 70, 236);
 }
 
 #root {
@@ -22,11 +21,22 @@ body {
 }
 
 a {
-  color: var(--primary-color);
+  color: $color-primary;
   font-weight: 600;
   text-decoration: none;
 }
 
 a:hover {
   color: rgb(128, 45, 207);
+}
+
+.text-primary {
+  color: $color-primary;
+}
+
+.text-gray {
+  color: $color-gray;
+  &:hover {
+    color: darken($color-gray, 5%);
+  }
 }
