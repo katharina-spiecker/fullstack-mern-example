@@ -1,12 +1,10 @@
 import "./styles/main.scss";
-import { AuthContext } from "./context/AuthContext.js";
-import { useEffect, useState } from "react";
 import Login from "./views/auth/Login.jsx";
 import Registration from "./views/auth/Registration.jsx";
 import RequestPwdResetView from "./views/auth/RequestPwdResetView.jsx";
 import EmailConfirmationView from "./views/auth/EmailConfirmationView.jsx";
 import PwdResetView from "./views/auth/PwdResetView.jsx";
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import AllPosts from "./views/AllPosts.jsx";
 import UserPosts from "./views/UserPosts.jsx";
 import CreatePost from "./views/CreatePost.jsx";
@@ -15,38 +13,12 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import BlogView from "./views/BlogView.jsx";
 import LegalView from "./views/legal/LegalView.jsx";
 import LandingPage from "./views/LangingPage.jsx";
+import { AuthProvider } from "./context/AuthProvider.jsx";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authIsLoading, setAuthIsLoading] = useState(true);
-  const navigate = useNavigate(); // für redirect in logout button
-
-  useEffect(() => {
-    if (getToken()) {
-      setIsAuthenticated(true);
-    }
-    setAuthIsLoading(false);
-  }, [])
-
-  function login(token) {
-    localStorage.setItem('token', token);
-    setIsAuthenticated(true);
-  }
-
-  function logout() {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    navigate("/");
-}
-
-  function getToken() {
-    return localStorage.getItem('token');
-  }
-
-  console.log("isAuthenticated", isAuthenticated)
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, authIsLoading, login, getToken, logout }}>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}
@@ -71,7 +43,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </AuthContext.Provider>
+    </AuthProvider>
   )
 }
 
