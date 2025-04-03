@@ -1,4 +1,4 @@
-import Header from "./components/Header.jsx";
+import Header from "./components/Header.tsx";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -10,8 +10,8 @@ export default function Layout() {
                <Outlet />
             </main>
             <footer>
-            <Link to="/impressum">Impressum</Link>
-            <Link to="/privacy">Datenschutz</Link>
+            <Link to="/impressum">Imprint</Link>
+            <Link to="/privacy">Privacy</Link>
             </footer>
         </>
     )
