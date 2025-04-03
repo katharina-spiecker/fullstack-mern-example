@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 export default function EmailConfirmationView() {
     const { token } = useParams();
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState<string>("");
 
     useEffect(() => {
         // Check if token is valid

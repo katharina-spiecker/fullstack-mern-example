@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 
 export default function Registration() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
 
-    function onSubmit(e) {
+    function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {

@@ -1,6 +1,10 @@
 import legalTexts from "./texts.json";
 
-export default function LegalView({type}) {
+type Props = {
+    type: "impressum" | "privacy"
+}
+
+export default function LegalView({type}: Props) {
 
     const activeText = legalTexts[type];
 

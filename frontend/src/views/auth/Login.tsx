@@ -1,19 +1,19 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext.ts";
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
-    const [showEmailNotVerified, setShowEmailNotVerified] = useState(false);
-    const [emailVerificationMesage, setEmailVerificationMesage] = useState("Your email has not been verified.");
-    const [showEmailVerificationBtn, setShowEmailVerificationBtn] = useState(false);
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
+    const [showEmailNotVerified, setShowEmailNotVerified] = useState<boolean>(false);
+    const [emailVerificationMesage, setEmailVerificationMesage] = useState<string>("Your email has not been verified.");
+    const [showEmailVerificationBtn, setShowEmailVerificationBtn] = useState<boolean>(false);
     const { login } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
-    function onSubmit(e) {
+    function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setShowEmailNotVerified(false);
 

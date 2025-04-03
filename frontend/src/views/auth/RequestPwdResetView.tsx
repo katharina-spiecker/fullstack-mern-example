@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 export default function RequestPwdResetView() {
-    const [email, setEmail] = useState("");
-    const [showMessage, setShowMessage] = useState(false);
+    const [email, setEmail] = useState<string>("");
+    const [showMessage, setShowMessage] = useState<boolean>(false);
 
-    function handleSubmit(e) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/request/pwd-reset`, {

@@ -28,7 +28,7 @@ export default function RequestPwdResetView() {
         })
     }, [])
 
-    function handleSubmit(e) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/reset-pwd`, {
@@ -57,7 +57,7 @@ export default function RequestPwdResetView() {
         })
     }
 
-    function onChangePwd(e) {
+    function onChangePwd(e: React.ChangeEvent<HTMLInputElement>) {
         setPwd(e.target.value);
         if (e.target.value.length < 8) {
             setInvalidPwd(true);
@@ -66,7 +66,7 @@ export default function RequestPwdResetView() {
         }
     }
 
-    function onChangePwdRepeat(e) {
+    function onChangePwdRepeat(e: React.ChangeEvent<HTMLInputElement>) {
         setRepeatPwd(e.target.value);
         // check if pwd match
         if (pwd !== e.target.value) {

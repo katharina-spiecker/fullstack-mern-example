@@ -1,6 +1,11 @@
 import styles from "./Post.module.scss";
+import { Post } from "../types";
 
-export default function Post({post}) {
+type Props = {
+    post: Post
+}
+
+export default function PostContainer({post}: Props) {
     return (
         <div className={styles.postWrapper}>
             <h3 className={styles.postWrapperTitle}>{post.title}</h3>

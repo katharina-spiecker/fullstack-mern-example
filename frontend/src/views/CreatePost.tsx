@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext.ts";
 
 export default function CreatePost() {
     const [title, setTitle] = useState("");
@@ -7,7 +7,7 @@ export default function CreatePost() {
     const [message, setMessage] = useState("");
     const { getToken } = useContext(AuthContext)
 
-    function onSubmit(e) {
+    function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const jwt = getToken();
 

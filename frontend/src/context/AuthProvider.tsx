@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "./AuthContext.ts";
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }: {children: React.ReactNode}) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authIsLoading, setAuthIsLoading] = useState(true);
   const navigate = useNavigate(); // for redirect in logout button
@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
     setAuthIsLoading(false);
   }, []);
 
-  function login(token) {
+  function login(token: string) {
     localStorage.setItem("token", token);
     setIsAuthenticated(true);
   }
@@ -30,7 +30,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{isAuthenticated, authIsLoading, login, getToken,logout,}}>
+    <AuthContext.Provider value={{isAuthenticated, authIsLoading, login, getToken, logout}}>
         {children}
     </AuthContext.Provider>
   );

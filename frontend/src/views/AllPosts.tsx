@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext.js";
-import Post from "../components/Post.jsx";
+import { AuthContext } from "../context/AuthContext.ts";
+import PostContainer from "../components/PostContainer.tsx";
+import { Post } from "../types.ts";
 
 export default function AllPosts() {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const { getToken } = useContext(AuthContext);
 
     const jwt = getToken();
@@ -29,7 +30,7 @@ export default function AllPosts() {
         <div>
             <section>
                 {
-                    posts.map((post) => <Post key={post._id} post={post}/>)
+                    posts.map((post) => <PostContainer key={post._id} post={post}/>)
                 }
             </section>
         </div>

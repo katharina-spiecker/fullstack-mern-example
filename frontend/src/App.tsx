@@ -1,19 +1,19 @@
 import "./styles/main.scss";
-import Login from "./views/auth/Login.jsx";
-import Registration from "./views/auth/Registration.jsx";
-import RequestPwdResetView from "./views/auth/RequestPwdResetView.jsx";
-import EmailConfirmationView from "./views/auth/EmailConfirmationView.jsx";
-import PwdResetView from "./views/auth/PwdResetView.jsx";
+import Login from "./views/auth/Login.tsx";
+import Registration from "./views/auth/Registration.tsx";
+import RequestPwdResetView from "./views/auth/RequestPwdResetView.tsx";
+import EmailConfirmationView from "./views/auth/EmailConfirmationView.tsx";
+import PwdResetView from "./views/auth/PwdResetView.tsx";
 import { Route, Routes } from 'react-router-dom';
-import AllPosts from "./views/AllPosts.jsx";
-import UserPosts from "./views/UserPosts.jsx";
-import CreatePost from "./views/CreatePost.jsx";
-import Layout from "./Layout.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import BlogView from "./views/BlogView.jsx";
-import LegalView from "./views/legal/LegalView.jsx";
-import LandingPage from "./views/LangingPage.jsx";
-import { AuthProvider } from "./context/AuthProvider.jsx";
+import AllPosts from "./views/AllPosts.tsx";
+import UserPosts from "./views/UserPosts.js";
+import CreatePost from "./views/CreatePost.tsx";
+import Layout from "./Layout.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import BlogView from "./views/BlogView.tsx";
+import LegalView from "./views/legal/LegalView.tsx";
+import LandingPage from "./views/LangingPage.tsx";
+import { AuthProvider } from "./context/AuthProvider.tsx";
 
 function App() {
 
