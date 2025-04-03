@@ -9,6 +9,7 @@ const router = express.Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post("/register", async (req, res) => {
+
   const email = req.body.email;
   const password = req.body.password;
 
@@ -31,22 +32,20 @@ router.post("/register", async (req, res) => {
 
     const emailResponse = await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: 'katharina.spiecker-freelancer@digitalcareerinstitute.org',
-      subject: 'Willkommen! Bitte E-Mail bestätigen',
+      to: process.env.RESEND_DEV_EMAIL,
+      subject: 'Welcome! Please confirm your email',
       html: `
       <div style="font-family: Arial, sans-serif; color: #333;">
-        <h1 style="color: #4CAF50;">Welcome to d01b!</h1>
-        <p>Wir freuen uns, dich in unserem Team zu haben.</p>
-        <p>Bitte bestätige deine Email!</p>
+        <h1 style="color: #4CAF50;">Welcome to Y!</h1>
+        <p>Please confirm your email!</p>
         <a href="http://localhost:5173/verify/${verificationToken}">E-Mail bestätigen<a/>
-        <p>Nächste Schritte:</p>
+        <p>Next steps:</p>
         <ol>
           <li>Explore our features</li>
           <li>Set up your profile</li>
           <li>Start using our platform to maximize productivity</li>
         </ol>
-        <p>Bis bald!</p>
-        <p>Das d01b Team</p>
+        <p>Your Y Team</p>
       </div>
     `
     });
@@ -59,7 +58,6 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     res.status(500).json({error: error.message})
   }
-  
 })
 
 router.post("/email-verification-resend", async (req, res) => {
