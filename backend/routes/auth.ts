@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import crypto from 'node:crypto';
 import { Resend } from 'resend';
 import jwt from "jsonwebtoken";
+import validator from 'validator';
 
 const router: Router = express.Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -66,6 +67,10 @@ router.post("/email-verification-resend", async (req: Request, res: Response, ne
     return res.status(400).json({error: 'email required'});
   }
 
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({error: 'invalid email'});
+  }
+
   try {
     const verificationToken = crypto.randomBytes(32).toString("hex");
     const tokenExpiresAt = Date.now() + 1000 * 60 * 60 * 24;
@@ -115,12 +120,11 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
   const email = req.body.email;
   const password = req.body.password;
 
-  if (!email || !password) {
+  if (!email || !password || !validator.isEmail(email)) {
     return res.status(400).json({error: 'Invalid login'});
   }
 
   try {
-    // TODO check if email correct
     const user = await User.findOne({email: email});
     if (!user) {
       return res.status(401).json({error: 'Invalid login'});
