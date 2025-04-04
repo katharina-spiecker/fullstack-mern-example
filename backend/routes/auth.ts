@@ -39,7 +39,7 @@ router.post("/register", async (req: Request, res: Response, next: NextFunction 
       <div style="font-family: Arial, sans-serif; color: #333;">
         <h1 style="color: #4CAF50;">Welcome to Y!</h1>
         <p>Please confirm your email!</p>
-        <a href="http://localhost:5173/verify/${verificationToken}">E-Mail bestätigen<a/>
+        <a href="http://localhost:5173/verify/${verificationToken}">Confirm<a/>
         <p>Next steps:</p>
         <ol>
           <li>Explore our features</li>
@@ -87,21 +87,19 @@ router.post("/email-verification-resend", async (req: Request, res: Response, ne
     const emailResponse = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'katharina.spiecker-freelancer@digitalcareerinstitute.org',
-      subject: 'Willkommen! Bitte E-Mail bestätigen',
+      subject: 'Welcome! Please confirm your email',
       html: `
       <div style="font-family: Arial, sans-serif; color: #333;">
-        <h1 style="color: #4CAF50;">Welcome to d01b!</h1>
-        <p>Wir freuen uns, dich in unserem Team zu haben.</p>
-        <p>Bitte bestätige deine Email!</p>
-        <a href="http://localhost:5173/verify/${verificationToken}">E-Mail bestätigen<a/>
-        <p>Nächste Schritte:</p>
+        <h1 style="color: #4CAF50;">Welcome to Y!</h1>
+        <p>Please confirm your email!</p>
+        <a href="http://localhost:5173/verify/${verificationToken}">Confirm<a/>
+        <p>Next steps:</p>
         <ol>
           <li>Explore our features</li>
           <li>Set up your profile</li>
           <li>Start using our platform to maximize productivity</li>
         </ol>
-        <p>Bis bald!</p>
-        <p>Das d01b Team</p>
+        <p>Your Y Team</p>
       </div>
     `
     });
@@ -192,12 +190,12 @@ router.post("/request/pwd-reset", async (req: Request, res: Response, next: Next
     const emailResponse = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: process.env.RESEND_DEV_EMAIL!,
-      subject: 'Passwort reset',
+      subject: 'Password reset',
       html: `
       <div style="font-family: Arial, sans-serif; color: #333;">
         <p>You have requested to reset your password. This reset link will be valid for 1 hour.</p>
         <a href="http://localhost:5173/pwd-reset/${pwdResetToken}">Reset passwort<a/>
-        <p>Your Fullstack-MERN Team</p>
+        <p>Your Y Team</p>
       </div>
     `
     });
