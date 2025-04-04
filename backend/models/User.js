@@ -23,13 +23,13 @@ const userSchema = new mongoose.Schema({
     type: String
   },
   tokenExpiresAt: {
-    type: Date
+    type: Number
   },
   pwdResetToken: {
     type: String
   },
   pwdResetTokenExpiresAt: {
-    type: Date
+    type: Number
   }
 })
 

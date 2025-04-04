@@ -20,13 +20,12 @@ app.use("/api", postsRouter);
 
 // global error handling middleware
 app.use((err, req: Request, res: Response, next: NextFunction) => {
-    // failed mongoDB Schema validation (err.code is 121)
-if (err.name === "MongoServerError" && err.code === 121) {
-    res.status(400).send("Invalid request data");
-} else {
-    res.status(err.status || 500).send(err.message || "Internal Server Error");
-}
+    res.status(err.status || 500).json({
+      message: err.message,
+      error: err,
+    });
 });
+  
 
 // fallback, if no matching route found
 app.use((req: Request, res: Response) => {
