@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import authRouter from "./routes/auth.ts";
 import postsRouter from "./routes/posts.ts";
+import helmet from "helmet";
 
 await mongoose.connect(process.env.DB_URI!);
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors({
   origin: ['http://localhost:5173']
 }));
+app.use(helmet());
 
 app.use("/api/auth", authRouter);
 app.use("/api", postsRouter);
