@@ -1,14 +1,14 @@
-import express from "express";
+import express, { Request, Response, Router, NextFunction } from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import crypto from 'node:crypto';
 import { Resend } from 'resend';
 import jwt from "jsonwebtoken";
 
-const router = express.Router();
+const router: Router = express.Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-router.post("/register", async (req, res) => {
+router.post("/register", async (req: Request, res: Response, next: NextFunction ) => {
 
   const email = req.body.email;
   const password = req.body.password;
@@ -32,7 +32,7 @@ router.post("/register", async (req, res) => {
 
     const emailResponse = await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: process.env.RESEND_DEV_EMAIL,
+      to: process.env.RESEND_DEV_EMAIL!,
       subject: 'Welcome! Please confirm your email',
       html: `
       <div style="font-family: Arial, sans-serif; color: #333;">
@@ -56,11 +56,11 @@ router.post("/register", async (req, res) => {
 
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({error: error.message})
+    next(error);
   }
 })
 
-router.post("/email-verification-resend", async (req, res) => {
+router.post("/email-verification-resend", async (req: Request, res: Response, next: NextFunction) => {
   const email = req.body.email;
   if (!email) {
     return res.status(400).json({error: 'email required'});
@@ -107,11 +107,11 @@ router.post("/email-verification-resend", async (req, res) => {
 
     res.json({message: "Verification email sent"});
   } catch (error) {
-    res.status(500).json({error: error.message})
+    next(error);
   }
 })
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req: Request, res: Response, next: NextFunction) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -142,12 +142,12 @@ router.post("/login", async (req, res) => {
     res.json({user: user, token: token});
 
   } catch (error) {
-    res.status(500).json({error: error.message});
+    next(error);
   }
   
 })
 
-router.get("/verify/:token", async (req, res) => {
+router.get("/verify/:token", async (req: Request, res: Response, next: NextFunction) => {
   // hole Token aus URL
   // überprüfe ob Token in der users collection existiert
   const token = req.params.token;
@@ -167,11 +167,11 @@ router.get("/verify/:token", async (req, res) => {
       res.status(400).json({error: "Invalid or expired token. Please request a new verification email."})
     }
   } catch (error) {
-    res.status(500).json({error: error.message});
+    next(error);
   }
 })
 
-router.post("/request/pwd-reset", async (req, res) => {
+router.post("/request/pwd-reset", async (req: Request, res: Response, next: NextFunction) => {
   const email = req.body.email;
   if (!email) {
     return res.status(400).json({error: 'Input data not valid'});
@@ -190,7 +190,7 @@ router.post("/request/pwd-reset", async (req, res) => {
     // send email
     const emailResponse = await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: 'katharina.spiecker-freelancer@digitalcareerinstitute.org',
+      to: process.env.RESEND_DEV_EMAIL!,
       subject: 'Passwort reset',
       html: `
       <div style="font-family: Arial, sans-serif; color: #333;">
@@ -206,13 +206,13 @@ router.post("/request/pwd-reset", async (req, res) => {
     }
     res.json({message: "email sent"});
   } catch(error) {
-    res.status(500).json({error: error.message});
+    next(error);
   }
   
 
 })
 
-router.get("/verify/pwd-reset-token/:token", async (req, res) => {
+router.get("/verify/pwd-reset-token/:token", async (req: Request, res: Response, next: NextFunction) => {
   const token = req.params.token;
   try {
     const user = await User.findOne({pwdResetToken: token});
@@ -223,11 +223,11 @@ router.get("/verify/pwd-reset-token/:token", async (req, res) => {
       res.status(400).json({error: "Invalid or expired token. Please request a new password reset email."})
     }
   } catch (error) {
-    res.status(500).json({error: error.message});
+    next(error);
   }
 })
 
-router.post("/reset-pwd",  async (req, res) => {
+router.post("/reset-pwd",  async (req: Request, res: Response, next: NextFunction) => {
   const {password, token} = req.body;
   if (!password || password.length < 8) {
     return res.status(400).json({message: "Password is required and must be at least 8 characters long."});
@@ -248,7 +248,7 @@ router.post("/reset-pwd",  async (req, res) => {
       res.status(400).json({error: "Invalid or expired token. Please request a new password reset email."});
     }
   } catch (error) {
-    res.status(500).json({error: error.message});
+    next(error);
   }
 })
 
