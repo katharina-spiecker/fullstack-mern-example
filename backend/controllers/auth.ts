@@ -1,10 +1,12 @@
-import { Request, Response, NextFunction } from "express";
-import User from "../models/User.js";
+import { Request, Response, NextFunction, RequestHandler } from "express";
+import User from "../models/User";
 import bcrypt from "bcrypt";
 import crypto from "node:crypto";
 import { Resend } from "resend";
 import jwt from "jsonwebtoken";
 import validator from "validator";
+import dotenv from 'dotenv';
+dotenv.config();
 
 interface AuthRequest extends Request {
   body: {
@@ -16,7 +18,7 @@ interface AuthRequest extends Request {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const register = async (
+export const register: RequestHandler = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
@@ -24,7 +26,8 @@ export const register = async (
   const email = req.body.email;
   const password = req.body.password;
   if (!email || !password) {
-    return res.status(400).json({ error: "Invalid registration" });
+    res.status(400).json({ error: "Invalid registration" });
+    return;
   }
 
   try {
@@ -61,9 +64,8 @@ export const register = async (
     });
 
     if (emailResponse.error) {
-      return res
-        .status(500)
-        .json({ error: "Failed to send verification email" });
+      res.status(500).json({ error: "Failed to send verification email" });
+      return;
     }
     res.status(201).json(user);
   } catch (error) {
@@ -71,7 +73,7 @@ export const register = async (
   }
 };
 
-export const login = async (
+export const login: RequestHandler = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
@@ -80,29 +82,33 @@ export const login = async (
   const password = req.body.password;
 
   if (!email || !password || !validator.isEmail(email)) {
-    return res.status(400).json({ error: "Invalid login" });
+    res.status(400).json({ error: "Invalid login" });
+    return;
   }
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(401).json({ error: "Invalid login" });
+      res.status(401).json({ error: "Invalid login" });
+      return;
     }
 
     if (!user.verified) {
-      return res.status(403).json({ error: "AccountNotVerified" });
+      res.status(403).json({ error: "AccountNotVerified" });
+      return;
     }
     const passwordCorrect = await bcrypt.compare(password, user.password);
     if (!passwordCorrect) {
-      return res.status(401).json({ error: "Invalid login" });
+      res.status(401).json({ error: "Invalid login" });
+      return;
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY!);
     res.json({ user: user, token: token });
   } catch (error) {
     next(error);
   }
 };
 
-export const verifyToken = async (
+export const verifyToken: RequestHandler = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
@@ -119,11 +125,11 @@ export const verifyToken = async (
       user.verificationToken = undefined;
       user.tokenExpiresAt = undefined;
       await user.save();
-      return res.json({
+      res.json({
         message: "Your account has been successfully verified.",
       });
     } else {
-      return res.status(400).json({
+      res.status(400).json({
         error:
           "Invalid or expired token. Please request a new verification email.",
       });
@@ -133,14 +139,15 @@ export const verifyToken = async (
   }
 };
 
-export const resendEmailVerification = async (
+export const resendEmailVerification: RequestHandler = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
   const email = req.body.email;
   if (!email || !validator.isEmail(email)) {
-    return res.status(400).json({ error: "invalid email" });
+    res.status(400).json({ error: "invalid email" });
+    return;
   }
   try {
     const verificationToken = crypto.randomBytes(32).toString("hex");
@@ -155,7 +162,8 @@ export const resendEmailVerification = async (
     );
 
     if (response.matchedCount === 0) {
-      return res.status(400).json({ error: "invalid data" });
+      res.status(400).json({ error: "invalid data" });
+      return;
     }
     const emailResponse = await resend.emails.send({
       from: "onboarding@resend.dev",
@@ -177,9 +185,11 @@ export const resendEmailVerification = async (
               `,
     });
     if (emailResponse.error) {
-      return res
+      res
         .status(500)
         .json({ error: "Failed to send verification email" });
+       
+       return;
     }
     res.json({ message: "Verification email sent" });
   } catch (error) {
@@ -187,21 +197,23 @@ export const resendEmailVerification = async (
   }
 };
 
-export const requestPwdReset = async (
+export const requestPwdReset: RequestHandler = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
   const email = req.body.email;
   if (!email) {
-    return res.status(400).json({ error: "Input data not valid" });
+    res.status(400).json({ error: "Input data not valid" });
+    return;
   }
 
   try {
     const user = await User.findOne({ email: email });
     // if not found, send message
     if (!user) {
-      return res.status(400).json({ error: "Input data not valid" });
+      res.status(400).json({ error: "Input data not valid" });
+      return;
     }
     // if found, generate reset token valid shortly only
     const pwdResetToken = crypto.randomBytes(32).toString("hex");
@@ -225,9 +237,10 @@ export const requestPwdReset = async (
     });
 
     if (emailResponse.error) {
-      return res
+      res
         .status(500)
         .json({ error: "Failed to send verification email" });
+      return;
     }
     res.json({ message: "email sent" });
   } catch (error) {
@@ -235,19 +248,21 @@ export const requestPwdReset = async (
   }
 };
 
-export const resetPassword = async (
+export const resetPassword: RequestHandler = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
   const { password, token } = req.body;
   if (!password || password.length < 8) {
-    return res.status(400).json({
+    res.status(400).json({
       message: "Password is required and must be at least 8 characters long.",
     });
+    return;
   }
   if (!token) {
-    return res.status(400).json({ message: "Token is required" });
+    res.status(400).json({ message: "Token is required" });
+    return;
   }
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -272,7 +287,7 @@ export const resetPassword = async (
   }
 };
 
-export const verifyPwdResetToken = async (
+export const verifyPwdResetToken: RequestHandler = async (
   req: Request,
   res: Response,
   next: NextFunction

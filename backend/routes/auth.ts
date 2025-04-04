@@ -1,9 +1,9 @@
 import express, { Router } from "express";
-import * as controllers from "../controllers/auth.ts";
+import * as controllers from "../controllers/auth";
 
 const router: Router = express.Router();
 
-router.post("/register", constrollers.register);
+router.post("/register", controllers.register);
 
 router.post("/email-verification-resend", controllers.resendEmailVerification);
 

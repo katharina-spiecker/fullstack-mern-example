@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import Post from "../models/Post.js";
-import { CustomRequest } from "../types.ts";
+import { Request, Response, NextFunction, RequestHandler } from "express";
+import Post from "../models/Post";
+import { CustomRequest } from "../types";
 
-export const getPosts = async (req: Request, res: Response, next: NextFunction) => {
+export const getPosts: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const posts = await Post.find();
       res.json(posts);
@@ -11,7 +11,7 @@ export const getPosts = async (req: Request, res: Response, next: NextFunction) 
     }
   }
 
-export const getUserPosts = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const getUserPosts: RequestHandler = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const posts = await Post.find({author: req.userId});
     res.json(posts);
@@ -20,7 +20,7 @@ export const getUserPosts = async (req: CustomRequest, res: Response, next: Next
   }
 }
 
-export const createPost = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const createPost: RequestHandler = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const title = req.body.title;
     const description = req.body.description;
   

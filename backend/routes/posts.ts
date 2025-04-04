@@ -1,8 +1,6 @@
-import express, { Request, Response, Router, NextFunction } from "express";
-import Post from "../models/Post.js";
-import { authMiddleware } from "../middleware/authMiddleware.ts";
-import { CustomRequest } from "../types.ts";
-import * as controllers from "../controllers/posts.ts";
+import express, { Router } from "express";
+import { authMiddleware } from "../middleware/authMiddleware";
+import * as controllers from "../controllers/posts";
 
 const router: Router = express.Router();
 
