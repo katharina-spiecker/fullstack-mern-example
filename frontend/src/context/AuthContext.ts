@@ -8,7 +8,7 @@ export type AuthContextType = {
     getToken: () => void;
 };
 
-// Create AuthContext
+// create AuthContext
 export const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     authIsLoading: false,

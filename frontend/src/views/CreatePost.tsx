@@ -17,7 +17,7 @@ export default function CreatePost() {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${jwt}`
             },
-            body: JSON.stringify({ // Daten, die im Anfrage-Body gesendet werden
+            body: JSON.stringify({
                 title: title,
                 description: description
             })

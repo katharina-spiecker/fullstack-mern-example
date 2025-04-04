@@ -10,11 +10,11 @@ export default function Registration() {
         e.preventDefault();
 
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
-            method: 'POST', // HTTP-Methode
+            method: 'POST',
             headers: {
-              'Content-Type': 'application/json' // Header, der den Inhaltstyp angibt
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ // Daten, die im Anfrage-Body gesendet werden
+            body: JSON.stringify({
               email: email,
               password: password
             })

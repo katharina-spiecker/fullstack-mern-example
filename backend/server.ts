@@ -18,7 +18,7 @@ app.use("/api", postsRouter);
 
 // global error handling middleware
 app.use((err, req: Request, res: Response, next: NextFunction) => {
-    // mongoDB Schema Validierung fehlgeschlagen (err.code ist 121): setze 400 Fehler da Fehler bei Anfragedaten
+    // failed mongoDB Schema validation (err.code is 121)
 if (err.name === "MongoServerError" && err.code === 121) {
     res.status(400).send("Invalid request data");
 } else {

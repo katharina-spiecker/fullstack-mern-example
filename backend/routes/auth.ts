@@ -120,13 +120,12 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
   }
 
   try {
-    // TODO: checke erst ob Email korrekt
+    // TODO check if email correct
     const user = await User.findOne({email: email});
     if (!user) {
       return res.status(401).json({error: 'Invalid login'});
     }
 
-    // check ob verified ist
     if (!user.verified) {
       return res.status(403).json({error: "AccountNotVerified"});
     }
@@ -148,19 +147,17 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
 })
 
 router.get("/verify/:token", async (req: Request, res: Response, next: NextFunction) => {
-  // hole Token aus URL
-  // überprüfe ob Token in der users collection existiert
+  // get token from url and check if exists in users collection
   const token = req.params.token;
   try {
     const user = await User.findOne({verificationToken: token});
-    // check ob user gefunden und token noch gültig
+    // was user found and token still valid?
     if (user && Date.now() < user.tokenExpiresAt) {
-      // verified auf true setzen
+      // set verified to true
       user.verified = true;
-      // entferne die anderen Felder (nur benötigt wenn nicht verified)
+      // remove fields (only needed if not verified)
       user.verificationToken = undefined;
       user.tokenExpiresAt = undefined;
-      // speichere verändertes Objekt
       await user.save();
       res.json({"message": "Your account has been successfully verified."});
     } else {
@@ -216,7 +213,7 @@ router.get("/verify/pwd-reset-token/:token", async (req: Request, res: Response,
   const token = req.params.token;
   try {
     const user = await User.findOne({pwdResetToken: token});
-    // check ob user gefunden und token noch gültig
+    // if user found and token valid
     if (user && Date.now() < user.pwdResetTokenExpiresAt) {
       res.status(204).send();
     } else {

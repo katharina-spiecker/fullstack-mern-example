@@ -33,8 +33,7 @@ const userSchema = new mongoose.Schema({
   }
 })
 
-// Mongoose will automatically call the toJSON method whenever the document is transformed to JSON
-// Mongoose ruft die toJSON Methode automatisch auf, wenn das Dokument in JSON Format transformiert wird
+// mongoose will automatically call the method whenever the document is transformed to JSON
 userSchema.methods.toJSON = function() {
   const obj = this.toObject();
   delete obj.password;
