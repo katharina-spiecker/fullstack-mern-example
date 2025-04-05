@@ -1,4 +1,3 @@
-import styles from "./Post.module.scss";
 import { Post } from "../types";
 
 type Props = {
@@ -7,9 +6,11 @@ type Props = {
 
 export default function PostContainer({post}: Props) {
     return (
-        <div className={styles.postWrapper}>
-            <h3 className={styles.postWrapperTitle}>{post.title}</h3>
-            <p>{post.description}</p>
+        <div className="card w-96 bg-base-100 card-md shadow-sm mb-5">
+            <div className="card-body">
+                <h2 className="card-title">{post.title}</h2>
+                <p>{post.description}</p>
+            </div>
         </div>
     )
 }
