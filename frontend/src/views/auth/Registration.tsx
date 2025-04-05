@@ -32,7 +32,7 @@ export default function Registration() {
 
     return (
         <section className="form-wrapper">
-            <h1>Neu hier?</h1>
+            <h1 className="text-xl md:text-2xl font-semibold mb-2">Neu hier?</h1>
             <p className="form-info">{message}</p>
             <form onSubmit={onSubmit}>
                 <div className="input-section">
@@ -43,9 +43,9 @@ export default function Registration() {
                     <label htmlFor="password">Passwort</label>
                     <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
-                <button className="button-primary">Registrieren</button>
+                <button className="btn btn-primary">Registrieren</button>
             </form>
-            <p style={{marginTop: "20px"}}>Du hast schon einen Account?<br/> <Link to="/login">Jetzt einloggen</Link></p>
+            <p className="mt-5">Du hast schon einen Account?<br/> <Link to="/login" className="link-primary">Jetzt einloggen</Link></p>
         </section>
     )
 }

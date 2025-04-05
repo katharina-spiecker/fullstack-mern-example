@@ -93,7 +93,7 @@ export default function RequestPwdResetView() {
                 {
                     allowReset && (
                         <form onSubmit={handleSubmit}>
-                            <h1>Choose a new Password</h1>
+                            <h1 className="text-xl md:text-2xl font-semibold mb-2">Choose a new Password</h1>
                             <div className="input-section">
                                 <label htmlFor="pwd">Password</label>
                                 <input type="password" id="pwd" value={pwd} onChange={onChangePwd} />
@@ -108,7 +108,7 @@ export default function RequestPwdResetView() {
                                     invalidPwdRepeat && <div className="input-information">Your passwords neet to match</div>
                                 }
                             </div>
-                            <button className="button-primary" disabled={invalidPwd || invalidPwdRepeat}>Reset Password</button>
+                            <button className="btn btn-primary" disabled={invalidPwd || invalidPwdRepeat}>Reset Password</button>
                         </form>
                     )
                 }

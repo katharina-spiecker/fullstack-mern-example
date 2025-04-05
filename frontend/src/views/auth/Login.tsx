@@ -79,7 +79,7 @@ export default function Login() {
 
     return (
         <section className="form-wrapper">
-            <h1>Login</h1>
+            <h1 className="text-xl md:text-2xl font-semibold mb-2">Login</h1>
             {
                 message && <p className="form-info">{message}</p>
             }
@@ -88,7 +88,7 @@ export default function Login() {
                     <>
                     <div className="form-info" style={{marginBottom: showEmailVerificationBtn ? "0" : "20px"}}>{emailVerificationMesage}</div>
                     {
-                        showEmailVerificationBtn &&  <button className="button-primary" style={{marginBottom: "20px"}} onClick={handleEmailVerificationResend}>Resend verification email</button>
+                        showEmailVerificationBtn &&  <button className="btn btn-primary" style={{marginBottom: "20px"}} onClick={handleEmailVerificationResend}>Resend verification email</button>
                     }
                     </>
                 )
@@ -102,10 +102,10 @@ export default function Login() {
                     <label htmlFor="password">Passwort</label>
                     <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
-                <button className="button-primary">Anmelden</button>
+                <button className="btn btn-primary">Anmelden</button>
             </form>
-            <p style={{marginTop: "20px", marginBottom: "10px"}}><Link to="/register">Jetzt registrieren</Link></p>
-            <p><Link className="text-gray" to="/request-pwd-reset">Passwort vergessen</Link></p>
+            <p className="mt-5 mb-3">Noch kein Account?<br/> <Link to="/login" className="link-primary">Jetzt registrieren</Link></p>
+            <p><Link className="link" to="/request-pwd-reset">Passwort vergessen</Link></p>
         </section>
     )
 }

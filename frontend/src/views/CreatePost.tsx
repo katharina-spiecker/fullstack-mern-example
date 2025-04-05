@@ -46,7 +46,7 @@ export default function CreatePost() {
                     <label htmlFor="description">Inhalt</label>
                     <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
                 </div>
-                <button className="button-primary">Post</button>
+                <button className="btn btn-primary">Post</button>
             </form>
         </section>
     )

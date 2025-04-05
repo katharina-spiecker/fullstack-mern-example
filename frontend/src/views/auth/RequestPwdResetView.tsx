@@ -34,12 +34,12 @@ export default function RequestPwdResetView() {
                     showMessage &&  <div className="text-primary" style={{marginBottom: "20px"}}>If this email has an account with us, an email was sent out. Please open the link in your email inbox to complete the reset process.</div>
                 }
                 <form onSubmit={handleSubmit}>
-                    <h1>Reset Password</h1>
+                    <h1 className="text-xl md:text-2xl font-semibold mb-2">Reset Password</h1>
                     <div className="input-section">
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
-                    <button className="button-primary">Request reset</button>
+                    <button className="btn btn-primary">Request reset</button>
                 </form>
             </section>
         </>
