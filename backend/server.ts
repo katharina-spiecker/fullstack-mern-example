@@ -4,10 +4,11 @@ import cors from "cors";
 import authRouter from "./routes/auth";
 import postsRouter from "./routes/posts";
 import helmet from "helmet";
+import connectDB from "./db";
 import dotenv from 'dotenv';
 dotenv.config();
 
-await mongoose.connect(process.env.DB_URI!);
+connectDB();
 
 const app: Express = express();
 
@@ -22,10 +23,14 @@ app.use("/api", postsRouter);
 
 // global error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    res.status(err.status || 500).json({
-      message: err.message,
-      error: err,
-    });
+    if (err instanceof mongoose.Error.ValidationError) {
+        res.status(400).json({ "error": "Validation error", details: err.message });
+    } else {
+        res.status(err.status || 500).json({
+            message: err.message,
+            error: err,
+        });
+    }
 });
   
 
