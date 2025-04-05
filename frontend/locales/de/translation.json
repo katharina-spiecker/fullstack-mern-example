@@ -1,0 +1,15 @@
+{
+    "nav": {
+        "privacy": "Datenschutz",
+        "imprint": "Impressum",
+        "posts": "Posts",
+        "newPost": "Neuer Post",
+        "myPosts": "Meine Posts"
+    },
+    "newPost": {
+        "title": "Neuer Post",
+        "postTitle": "Titel",
+        "desc": "Inhalt",
+        "publish": "Posten"
+    }
+}

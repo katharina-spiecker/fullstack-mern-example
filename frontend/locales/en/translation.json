@@ -1,0 +1,15 @@
+{
+    "nav": {
+        "privacy": "Privacy",
+        "imprint": "Imprint",
+        "posts": "Posts",
+        "newPost": "New Post",
+        "myPosts": "My Posts"
+    },
+    "newPost": {
+        "title": "New Post",
+        "postTitle": "Title",
+        "desc": "Post",
+        "publish": "Publish"
+    }
+}

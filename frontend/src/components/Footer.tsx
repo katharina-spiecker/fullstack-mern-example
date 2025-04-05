@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
-    
+    const { t } = useTranslation();
+
     return (
         <footer className="footer footer-horizontal footer-center bg-gray-100 text-base-content p-10 text-center">
         <nav className="grid grid-flow-col gap-4 max-w-xs mx-auto">
-          <Link to="/imprint" className="link link-hover text-center">Imprint</Link>
-          <Link to='/privacy' className="link link-hover text-center">Privacy</Link>
+          <Link to="/imprint" className="link link-hover text-center">{t('nav.imprint')}</Link>
+          <Link to='/privacy' className="link link-hover text-center">{t('nav.privacy')}</Link>
           <Link to='/blog' className="link link-hover text-center">Blog</Link>
         </nav>
         <nav className="max-w-3xs mx-auto">
@@ -47,7 +49,7 @@ export default function Footer() {
             </div>
         </nav>
         <aside className="text-center">
-          <p>Copyright © {new Date().getFullYear()} - All right reserved by Y</p>
+          <p>Copyright © {new Date().getFullYear()} - Y</p>
         </aside>
       </footer>
     )

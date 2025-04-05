@@ -5,7 +5,8 @@ export default function CreatePost() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [message, setMessage] = useState("");
-    const { getToken } = useContext(AuthContext)
+    const { getToken } = useContext(AuthContext);
+    const { t } = useTranslation();
 
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -35,18 +36,18 @@ export default function CreatePost() {
 
     return (
         <section className="form-wrapper">
-            <h4>Neuer Post</h4>
+            <h4>{t('newPost.title')}</h4>
             <p className="form-info">{message}</p>
             <form onSubmit={onSubmit}>
                 <div className="input-section">
-                    <label htmlFor="title">Titel</label>
+                    <label htmlFor="title">{t('newPost.postTitle')}</label>
                     <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
                 </div>
                 <div className="input-section">
-                    <label htmlFor="description">Inhalt</label>
+                    <label htmlFor="description">{t('newPost.desc')}</label>
                     <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
                 </div>
-                <button className="btn btn-primary">Post</button>
+                <button className="btn btn-primary">{t('newPost.publish')}</button>
             </form>
         </section>
     )

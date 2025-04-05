@@ -1,9 +1,12 @@
 import { NavLink, Link } from "react-router-dom";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext.ts';
+import { useTranslation } from "react-i18next";
+import LangSwitch from "./LangSwitch.tsx";
 
 export default function Nav() {
     const { isAuthenticated, logout } = useContext(AuthContext);
+    const { t } = useTranslation();
 
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -15,14 +18,15 @@ export default function Nav() {
                     {
                         isAuthenticated &&
                         <>
-                        <NavLink className="nav-link hidden md:block" to="/posts">Alle Posts</NavLink>
-                        <NavLink className="nav-link hidden md:block" to="/account/posts">Meine Posts</NavLink>
-                        <NavLink className="nav-link hidden md:block" to="/newpost">Neuer Post</NavLink>
+                        <NavLink className="nav-link hidden md:block" to="/posts">{t('nav.posts')}</NavLink>
+                        <NavLink className="nav-link hidden md:block" to="/account/posts">{t('nav.myPosts')}</NavLink>
+                        <NavLink className="nav-link hidden md:block" to="/newpost">{t('nav.newPost')}</NavLink>
                         </>
                     }
                 </div>
                 <div className="flex items-center gap-4">
                     <NavLink className="nav-link hidden md:block" to="/blog">Blog</NavLink>
+                    <LangSwitch />
                      {/* Hamburger icon */}
                      <div className="dropdown dropdown-end md:hidden">
                         <div tabIndex={0} role="button" className="btn btn-ghost">
@@ -37,13 +41,13 @@ export default function Nav() {
                                 isAuthenticated &&
                                 <>
                                     <li>
-                                        <Link to="/posts">Alle Posts</Link>
+                                        <Link to="/posts">{t('nav.posts')}</Link>
                                     </li>
                                     <li>
-                                        <Link to="/account/posts">Meine Posts</Link>
+                                        <Link to="/account/posts">{t('nav.myPosts')}</Link>
                                     </li>
                                     <li>
-                                        <Link to="/newpost">Neuer Post</Link>
+                                        <Link to="/newpost">{t('nav.newPost')}</Link>
                                     </li>
                                 </>
                             } 
