@@ -16,6 +16,10 @@ A full-stack starter template for building modern web applications using the **M
 
 ---
 
+## Preview
+
+<img src="./preview-desktop-newpost.png" width="80%" />
+
 ### Prerequisites
 
 - Node.js (v18+)
@@ -33,7 +37,18 @@ cd fullstack-mern-example
 ```
 
 #### Environment Variables
-- You must create a .env file in the backend and frontend directory by copying the provided .env.example files.
+1. Create a .env file in the backend and in the frontend directory each by copying the provided .env.example files.
+2. For the development server, you can keep the default value in the frontend .env file. Adjust the .env file in the backend directory.
+```bash
+DB_URI=our_mongodb_connection_string
+ACCESS_TOKEN_SECRET=your_access_token_secret
+REFRESH_TOKEN_SECRET=your_refresh_token_secret
+ACCESS_TOKEN_EXPIRATION_MS=18000 # milliseconds until expiration
+REFRESH_TOKEN_EXPIRATION=7d # 7 days
+RESEND_API_KEY=your_resend_api_key
+RESEND_DEV_EMAIL=your_resend_account_email # during dev mode, only emails to account email permitted
+FRONTEND_URL_CORS=http://localhost:5173
+```
 
 
 #### Installation
