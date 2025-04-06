@@ -3,15 +3,12 @@
   "name": "backend-registration",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "dev": "tsup server.ts --watch --onSuccess='node dist/server.js'",
     "build": "tsup server.ts --format esm --out-dir dist",
     "start": "node dist/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",

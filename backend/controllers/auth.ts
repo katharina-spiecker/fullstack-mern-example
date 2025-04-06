@@ -176,7 +176,7 @@ export const resendEmailVerification: RequestHandler = async (
     }
     const emailResponse = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: "katharina.spiecker-freelancer@digitalcareerinstitute.org",
+      to: process.env.RESEND_DEV_EMAIL!,
       subject: "Welcome! Please confirm your email",
       html: `
                 <div style="font-family: Arial, sans-serif; color: #333;">
