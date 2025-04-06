@@ -21,11 +21,11 @@ export const authMiddleware: RequestHandler = (req: CustomRequest, res: Response
     }
     
     try {
-        const decoded: jwtPayload = jwt.verify(token, process.env.JWT_SECRET_KEY!) as jwtPayload;
+        const decoded: jwtPayload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as jwtPayload;
         req.userId = decoded.userId;
         next();
     } catch(err) {
        res.status(401).send();
-        return;
+       return;
     }
   }

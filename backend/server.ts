@@ -5,6 +5,7 @@ import authRouter from "./routes/auth";
 import postsRouter from "./routes/posts";
 import helmet from "helmet";
 import connectDB from "./db";
+import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -14,9 +15,11 @@ const app: Express = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5173']
+  origin: process.env.FRONTEND_URL_CORS!,
+  credentials: true
 }));
-app.use(helmet());
+app.use(cookieParser());
+// app.use(helmet());
 
 app.use("/api/auth", authRouter);
 app.use("/api", postsRouter);

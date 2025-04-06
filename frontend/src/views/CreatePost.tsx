@@ -1,22 +1,22 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext.ts";
+import { useTranslation } from "react-i18next";
 
 export default function CreatePost() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [message, setMessage] = useState("");
-    const { getToken } = useContext(AuthContext);
+    const { token } = useContext(AuthContext);
     const { t } = useTranslation();
 
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const jwt = getToken();
 
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts`, {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${jwt}`
+              'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 title: title,

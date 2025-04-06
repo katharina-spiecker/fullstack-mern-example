@@ -25,10 +25,10 @@ export default function Login() {
             body: JSON.stringify({
               email: email,
               password: password
-            })
+            }),
+            credentials: "include"
         })
         .then(res => {
-            console.log(res);
             if (!res.ok) {
                 if (res.status === 403) {
                     setShowEmailVerificationBtn(true);

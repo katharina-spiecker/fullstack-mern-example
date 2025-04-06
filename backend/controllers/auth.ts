@@ -101,8 +101,17 @@ export const login: RequestHandler = async (
       res.status(401).json({ error: "Invalid login" });
       return;
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY!);
-    res.json({ user: user, token: token });
+
+    // Generate access and refresh tokens
+    const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION_MS });
+    const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION });
+
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true });
+    res.json({ user: user, token: accessToken });
+
   } catch (error) {
     next(error);
   }
@@ -312,3 +321,49 @@ export const verifyPwdResetToken: RequestHandler = async (
     next(error);
   }
 };
+
+type jwtPayload = {
+    userId: string
+}
+
+export const refreshToken: RequestHandler = async (req: Request, res: Response) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+        res.status(403).send();
+        return;
+    }
+
+    try {
+        const decoded: jwtPayload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!) as jwtPayload;
+        // Check if refresh token matches stored one in DB
+        const user = await User.findById(decoded.userId);
+        if (!user || user.refreshToken !== refreshToken) {
+            res.status(403).send();
+            return; 
+        }
+        const newAccessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION_MS });
+        res.json({ token: newAccessToken, tokenExpirationMs: process.env.ACCESS_TOKEN_EXPIRATION_MS});
+    } catch (err) {
+       res.status(403).send();
+       return;
+    }
+}
+
+export const logout: RequestHandler = async (req: Request, res: Response) => {
+    const refreshToken = req.cookies.refreshToken;
+  
+    if (!refreshToken) {
+        res.status(400).json({ error: "No token provided" });
+        return;
+    } 
+  
+    const user = await User.findOne({ refreshToken });
+    if (user) {
+      user.refreshToken = null;
+      await user.save();
+    }
+  
+    res.clearCookie("refreshToken", { httpOnly: true, secure: true });
+    res.json({ message: "Logged out successfully" });
+}

@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema({
   },
   pwdResetTokenExpiresAt: {
     type: Number
+  },
+  refreshToken: {
+    type: String
   }
 })
 

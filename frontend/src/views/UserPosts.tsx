@@ -5,14 +5,12 @@ import { Post } from "../types.ts";
 
 export default function UserPosts() {
     const [posts, setPosts] = useState<Post[]>([]);
-    const { getToken } = useContext(AuthContext);
-
-    const jwt = getToken();
+    const { token } = useContext(AuthContext);
 
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/posts`, {
             headers: {
-              'Authorization': `Bearer ${jwt}`
+              'Authorization': `Bearer ${token}`
             }
         })
         .then(res => {
@@ -24,7 +22,7 @@ export default function UserPosts() {
         .then(data => {
             setPosts(data);
         })
-    }, [])
+    }, [token])
 
     return (
         <div>
