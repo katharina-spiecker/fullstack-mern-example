@@ -49,7 +49,7 @@ export default function Footer() {
             </div>
         </nav>
         <aside className="text-center">
-          <p>Copyright © {new Date().getFullYear()} - Y</p>
+          <p>Copyright © {new Date().getFullYear()}</p>
         </aside>
       </footer>
     )

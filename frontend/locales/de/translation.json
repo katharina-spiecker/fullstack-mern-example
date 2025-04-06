@@ -11,5 +11,20 @@
         "postTitle": "Titel",
         "desc": "Inhalt",
         "publish": "Posten"
+    },
+    "login": {
+        "title": "Wilkommen zurück",
+        "submit": "Anmelden",
+        "ctaRegisterInstead": "Registrieren"
+    },
+    "register": {
+        "title": "Neu hier?",
+        "submit": "Registrieren",
+        "ctaLoginInstead": "Einloggen"
+    },
+    "general": {
+        "email": "E-Mail",
+        "password": "Passwort",
+        "forgotPassword": "Passwort vergessen"
     }
 }

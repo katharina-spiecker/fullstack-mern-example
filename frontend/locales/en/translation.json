@@ -11,5 +11,20 @@
         "postTitle": "Title",
         "desc": "Post",
         "publish": "Publish"
+    },
+    "login": {
+        "title": "Welcome back",
+        "submit": "Login",
+        "ctaRegisterInstead": "No account yet? Register now"
+    },
+    "register": {
+        "title": "New here?",
+        "submit": "Register",
+        "ctaLoginInstead": "Sign in instead"
+    },
+    "general": {
+        "email": "Email",
+        "password": "Password",
+        "forgotPassword": "Forgot password"
     }
 }

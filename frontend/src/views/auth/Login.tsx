@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.ts";
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
     const [email, setEmail] = useState<string>("");
@@ -10,6 +11,7 @@ export default function Login() {
     const [emailVerificationMesage, setEmailVerificationMesage] = useState<string>("Your email has not been verified.");
     const [showEmailVerificationBtn, setShowEmailVerificationBtn] = useState<boolean>(false);
     const { login } = useContext(AuthContext);
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
@@ -95,17 +97,17 @@ export default function Login() {
             }
             <form onSubmit={onSubmit}>
                 <div className="input-section">
-                    <label htmlFor="email">E-Mail-Adresse</label>
+                    <label htmlFor="email">{t('general.email')}</label>
                     <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
                 <div className="input-section">
-                    <label htmlFor="password">Passwort</label>
+                    <label htmlFor="password">{t('general.password')}</label>
                     <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
-                <button className="btn btn-primary">Anmelden</button>
+                <button className="btn btn-primary mb-3">{t('login.submit')}</button>
             </form>
-            <p className="mt-5 mb-3">Noch kein Account?<br/> <Link to="/login" className="link-primary">Jetzt registrieren</Link></p>
-            <p><Link className="link" to="/request-pwd-reset">Passwort vergessen</Link></p>
+            <Link to="/register" className="link-primary mb-2 inline-block">{t('login.ctaRegisterInstead')}</Link>
+            <p><Link className="link" to="/request-pwd-reset">{t('general.forgotPassword')}</Link></p>
         </section>
     )
 }
