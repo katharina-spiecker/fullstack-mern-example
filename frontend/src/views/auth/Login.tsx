@@ -107,7 +107,7 @@ export default function Login() {
                 <button className="btn btn-primary mb-3">{t('login.submit')}</button>
             </form>
             <Link to="/register" className="link-primary mb-2 inline-block">{t('login.ctaRegisterInstead')}</Link>
-            <p><Link className="link" to="/request-pwd-reset">{t('general.forgotPassword')}</Link></p>
+            <p><Link className="link text-sm" to="/request-pwd-reset">{t('general.forgotPassword')}</Link></p>
         </section>
     )
 }
